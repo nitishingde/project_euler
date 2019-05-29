@@ -1,5 +1,6 @@
 from time import time
 from abc import ABCMeta, abstractmethod
+from math import sqrt, floor
 
 def calculate_execution_time(func):
     def decorator(*args, **kwargs):
@@ -55,6 +56,8 @@ class ProjectEuler(metaclass=ABCMeta):
 
 def sum_of_arithmetic_progression(first, diff, n):
     """Sum of Arithmetic Progression of 'n' elements with differnce 'diff' and 'first' as first element
+    TC : O(1)
+    SC : O(1)
 
     Arguments:
         first {int} -- first number in the progression
@@ -65,3 +68,48 @@ def sum_of_arithmetic_progression(first, diff, n):
         int -- sum of arithmetic progression
     """
     return (n*(2*first + (n-1)*diff)) >> 1
+
+def prime_factorization(N):
+    """Find prime factors and their count for given number 'N'
+    TC : O(root(N))
+
+    Arguments:
+        N {int} -- Number
+
+    Returns:
+        List of sorted tuples -- (prime factors, count)
+    """
+    prime_factors = []
+    # 2 is the only even prime number, solve for it first
+    if N&1 == 0:
+        count = 1
+        N >>= 1
+        while N&1 == 0:
+            N >>= 1
+            count += 1
+        prime_factors.append((2, count))
+
+    # iterate over odd numbers
+    for factor in range(3, floor(sqrt(N))+1, 2):
+        if N%factor == 0:
+            count = 1
+            N //= factor
+            while N%factor == 0:
+                N //= factor
+                count += 1
+            prime_factors.append((factor, count))
+
+    if N != 1:
+        prime_factors.append((N, 1))
+        N = 1
+
+    return prime_factors
+
+if __name__ == '__main__':
+    # unit testing
+    print(sum_of_arithmetic_progression(1, 1, 4) == 10)
+    print(sum_of_arithmetic_progression(2, 3, 4) == 26)
+
+    print(prime_factorization(23) == [(23,1)])
+    print(prime_factorization(20) == [(2,2), (5,1)])
+    print(prime_factorization(169) == [(13,2)])
