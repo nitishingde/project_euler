@@ -1,5 +1,10 @@
 '''
 https://projecteuler.net/problem=3
+
+@math Prime Factorization
+
+For extra reading
+@note https://cp-algorithms.com/algebra/factorization.html
 '''
 
 from lib import (
