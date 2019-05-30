@@ -12,19 +12,19 @@ def calculate_execution_time(func):
 
 class Logger:
     @staticmethod
-    def info(val, file='info.log'):
+    def info(val: str, file='info.log'):
         print(val, file=open(file, 'a'), flush=True)
 
     @staticmethod
-    def warning(val, file='warning.log'):
+    def warning(val: str, file='warning.log'):
         print(val, file=open(file, 'a'), flush=True)
 
     @staticmethod
-    def error(val, file='error.log'):
+    def error(val: str, file='error.log'):
         print(val, file=open(file, 'a'), flush=True)
 
     @staticmethod
-    def terminal(val):
+    def terminal(val: str):
         print(val, flush=True)
 
 class ProjectEuler(metaclass=ABCMeta):
@@ -54,7 +54,7 @@ class ProjectEuler(metaclass=ABCMeta):
     def __str__(self):
         return self.__class__.__name__
 
-def sum_of_arithmetic_progression(first, diff, n):
+def sum_of_arithmetic_progression(first: int, diff: int, n: int) -> int:
     """Sum of Arithmetic Progression of 'n' elements with differnce 'diff' and 'first' as first element
     TC : O(1)
     SC : O(1)
@@ -69,7 +69,7 @@ def sum_of_arithmetic_progression(first, diff, n):
     """
     return (n*(2*first + (n-1)*diff)) >> 1
 
-def prime_factorization(N):
+def prime_factorization(N: int):
     """Find prime factors and their count for given number 'N'
     TC : O(root(N))
 
