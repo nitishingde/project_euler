@@ -156,6 +156,8 @@ def lcm(a: int, b: int) -> int:
     """
     return (a*b) // gcd(a, b)
 
+pow = pow
+
 if __name__ == '__main__':
 
     def unit_test(subject):
