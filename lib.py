@@ -6,7 +6,7 @@ def calculate_execution_time(func):
     def decorator(*args, **kwargs):
         start = time()
         ret = func(*args, **kwargs)
-        print(f'Execution time\t: {time()-start} seconds')
+        print(f'Execution time\t: {time()-start} seconds\n')
         return ret
     return decorator
 
@@ -69,7 +69,7 @@ def sum_of_arithmetic_progression(first: int, diff: int, n: int) -> int:
     """
     return (n*(2*first + (n-1)*diff)) >> 1
 
-def prime_factorization(N: int):
+def prime_factorization(N: int) -> list:
     """Find prime factors and their count for given number 'N'
     TC : O(root(N))
 
@@ -106,10 +106,28 @@ def prime_factorization(N: int):
     return prime_factors
 
 if __name__ == '__main__':
-    # unit testing
-    print(sum_of_arithmetic_progression(1, 1, 4) == 10)
-    print(sum_of_arithmetic_progression(2, 3, 4) == 26)
 
-    print(prime_factorization(23) == [(23,1)])
-    print(prime_factorization(20) == [(2,2), (5,1)])
-    print(prime_factorization(169) == [(13,2)])
+    def unit_test(subject):
+        def decorator(func):
+            def wrapper():
+                print(f'Unit Testing $({subject.__name__}):')
+                ret = func()
+                print()
+                return ret
+            return wrapper
+        return decorator
+
+    # unit testing
+    @unit_test(sum_of_arithmetic_progression)
+    def test_sum_of_arithmetic_progression():
+        print(sum_of_arithmetic_progression(1, 1, 4) == 10)
+        print(sum_of_arithmetic_progression(2, 3, 4) == 26)
+
+    @unit_test(prime_factorization)
+    def test_prime_factorization():
+        print(prime_factorization(23) == [(23,1)])
+        print(prime_factorization(20) == [(2,2), (5,1)])
+        print(prime_factorization(169) == [(13,2)])
+
+    test_sum_of_arithmetic_progression()
+    test_prime_factorization()
