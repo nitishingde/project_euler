@@ -1,6 +1,17 @@
-from time import time
-from abc import ABCMeta, abstractmethod
-from math import sqrt, floor
+from abc import (
+    ABCMeta,
+    abstractmethod,
+)
+from math import (
+    sqrt,
+    floor,
+)
+from pprint import (
+    pprint
+)
+from time import (
+    time,
+)
 
 def calculate_execution_time(func):
     def decorator(*args, **kwargs):
@@ -106,7 +117,44 @@ def prime_factorization(N: int) -> list:
     return prime_factors
 
 def is_palindrome(inp: str) -> bool:
+    """Checks if given string is palinrome or not
+
+    Arguments:
+        inp {str} -- input string
+
+    Returns:
+        bool -- True if palindrome ele False
+    """
     return inp == inp[::-1]
+
+def gcd(a: int, b: int) -> int:
+    """Greatest Common Divisor (Non-recursive)
+    TC : O(log(min(a,b)))
+
+    Arguments:
+        a {int} -- number
+        b {int} -- number
+
+    Returns:
+        int -- gcd
+    """
+    while a:
+        a, b = b%a, a
+
+    return b
+
+def lcm(a: int, b: int) -> int:
+    """Least Common Multiple
+    TC : O(log(min(a,b)))
+
+    Arguments:
+        a {int} -- number
+        b {int} -- number
+
+    Returns:
+        int -- lcm
+    """
+    return (a*b) // gcd(a, b)
 
 if __name__ == '__main__':
 
@@ -141,6 +189,20 @@ if __name__ == '__main__':
         print(is_palindrome('1') == True)
         print(is_palindrome('') == True)
 
+    @unit_test(gcd)
+    def test_gcd():
+        print(gcd(2, 3) == 1)
+        print(gcd(1, 10) == 1)
+        print(gcd(8, 12) == 4)
+
+    @unit_test(lcm)
+    def test_lcm():
+        print(lcm(2, 3) == 6)
+        print(lcm(1, 10) == 10)
+        print(lcm(8, 12) == 24)
+
     test_sum_of_arithmetic_progression()
     test_prime_factorization()
     test_is_palindrome()
+    test_gcd()
+    test_lcm()
