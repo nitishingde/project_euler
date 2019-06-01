@@ -105,6 +105,9 @@ def prime_factorization(N: int) -> list:
 
     return prime_factors
 
+def is_palindrome(inp: str) -> bool:
+    return inp == inp[::-1]
+
 if __name__ == '__main__':
 
     def unit_test(subject):
@@ -129,5 +132,15 @@ if __name__ == '__main__':
         print(prime_factorization(20) == [(2,2), (5,1)])
         print(prime_factorization(169) == [(13,2)])
 
+    @unit_test(is_palindrome)
+    def test_is_palindrome():
+        print(is_palindrome('racecar') == True)
+        print(is_palindrome('1221') == True)
+        print(is_palindrome('Racecar') == False)
+        print(is_palindrome('hello world') == False)
+        print(is_palindrome('1') == True)
+        print(is_palindrome('') == True)
+
     test_sum_of_arithmetic_progression()
     test_prime_factorization()
+    test_is_palindrome()
