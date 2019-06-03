@@ -3,8 +3,10 @@ from abc import (
     abstractmethod,
 )
 from math import (
-    sqrt,
+    ceil,
     floor,
+    log,
+    sqrt,
 )
 from pprint import (
     pprint
@@ -158,6 +160,56 @@ def lcm(a: int, b: int) -> int:
 
 pow = pow
 
+def build_sieve(n: int) -> tuple:
+    """Build sieve of Eratosthenes
+    TC : O(n*log(log(n)))
+
+    Arguments:
+        n {int} -- upper limit
+
+    Returns:
+        tuple(list, list) -- list of primes, bitmask for primes
+    """
+    if n < 2:
+        return [], [False]*n
+
+    is_prime = [True if no&1 else False for no in range(n+1)]
+    is_prime[1], is_prime[2], primes = False, True, [2]
+    for no in range(3, n+1, 2):# ceil(sqrt(n))
+        if is_prime[no]:
+            primes.append(no)
+            for multiple in range(no*no, n+1, no):
+                is_prime[multiple] = False
+
+    return primes, is_prime
+
+def build_sieve_(n: int) -> list:
+    """Build sieve of Eratosthenes
+
+    Arguments:
+        n {int} -- upper limit
+
+    Returns:
+        list -- list of primes
+    """
+    if n < 2:
+        return []
+
+    primes = [2]
+    for n in range(3, n+1, 2):
+        primes.append(n)
+        limit = floor(sqrt(n))
+        for prime in primes:
+            if prime <= limit:
+            # if prime*prime <= n:
+                if n%prime == 0:
+                    primes.pop()
+                    break
+            else:
+                break
+
+    return primes
+
 if __name__ == '__main__':
 
     def unit_test(subject):
@@ -203,8 +255,21 @@ if __name__ == '__main__':
         print(lcm(1, 10) == 10)
         print(lcm(8, 12) == 24)
 
+    @unit_test(build_sieve)
+    def test_build_sieve():
+        print(build_sieve(30)[0] == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29])
+        print(build_sieve(1)[0] == [])
+
+    @unit_test(build_sieve_)
+    def test_build_sieve_():
+        print(build_sieve_(30) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29])
+        print(build_sieve_(1) == [])
+        print(build_sieve_(1000) == build_sieve(1000)[0])
+
     test_sum_of_arithmetic_progression()
     test_prime_factorization()
     test_is_palindrome()
     test_gcd()
     test_lcm()
+    test_build_sieve()
+    test_build_sieve_()
