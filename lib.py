@@ -2,11 +2,17 @@ from abc import (
     ABCMeta,
     abstractmethod,
 )
+from functools import (
+    reduce,
+)
 from math import (
     ceil,
     floor,
     log,
     sqrt,
+)
+from operator import (
+    mul,
 )
 from pprint import (
     pprint
@@ -209,6 +215,8 @@ def build_sieve_(n: int) -> list:
                 break
 
     return primes
+
+max = max
 
 if __name__ == '__main__':
 
