@@ -218,6 +218,8 @@ def build_sieve_(n: int) -> list:
 
 max = max
 
+sum = sum
+
 if __name__ == '__main__':
 
     def unit_test(subject):
