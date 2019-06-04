@@ -220,6 +220,28 @@ max = max
 
 sum = sum
 
+def factorization(N: int) -> list:
+    """Get all the factors of N
+    TC : O(root(N))
+
+    Arguments:
+        N {int} -- number
+
+    Returns:
+        list -- list of all possible factors
+    """
+    s_factors = []
+    b_factors = []
+    for no in range(1, floor(sqrt(N))+1):
+        if N%no == 0:
+            s_factors.append(no)
+            b_factors.insert(0, N//no)
+
+    if s_factors[-1] == b_factors[0]:
+        s_factors.pop()
+
+    return s_factors+b_factors
+
 if __name__ == '__main__':
 
     def unit_test(subject):
@@ -276,6 +298,12 @@ if __name__ == '__main__':
         print(build_sieve_(1) == [])
         print(build_sieve_(1000) == build_sieve(1000)[0])
 
+    @unit_test(factorization)
+    def test_factorization():
+        print(factorization(1) == [1])
+        print(factorization(2) == [1, 2])
+        print(factorization(36) == [1, 2, 3, 4, 6, 9, 12, 18, 36])
+
     test_sum_of_arithmetic_progression()
     test_prime_factorization()
     test_is_palindrome()
@@ -283,3 +311,4 @@ if __name__ == '__main__':
     test_lcm()
     test_build_sieve()
     test_build_sieve_()
+    test_factorization()
