@@ -242,6 +242,18 @@ def factorization(N: int) -> list:
 
     return s_factors+b_factors
 
+def factorial(N: int) -> int:
+    """Get factorial of a non-negative N
+
+    Arguments:
+        N {int} -- number
+
+    Returns:
+        int -- factorial if N is a non-negative number else None
+    """
+    return reduce(mul, range(2, N+1, 1), 1) if -1 < N else None
+    # return N*factorial(N-1) if N > 1 else 1
+
 if __name__ == '__main__':
 
     def unit_test(subject):
@@ -304,6 +316,14 @@ if __name__ == '__main__':
         print(factorization(2) == [1, 2])
         print(factorization(36) == [1, 2, 3, 4, 6, 9, 12, 18, 36])
 
+    @unit_test(factorial)
+    def test_factorial():
+        print(factorial(0) == 1)
+        print(factorial(0) == 1)
+        print(factorial(3) == 6)
+        print(factorial(4) == 24)
+        print(factorial(-2) == None)
+
     test_sum_of_arithmetic_progression()
     test_prime_factorization()
     test_is_palindrome()
@@ -312,3 +332,4 @@ if __name__ == '__main__':
     test_build_sieve()
     test_build_sieve_()
     test_factorization()
+    test_factorial()
